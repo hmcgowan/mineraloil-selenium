@@ -1,7 +1,7 @@
 package com.lithium.mineraloil.selenium;
 
 import com.lithium.mineraloil.selenium.browsers.BrowserType;
-import com.lithium.mineraloil.selenium.generic_elements.JavascriptHelper;
+import com.lithium.mineraloil.selenium.elements.JavascriptHelper;
 import com.lithium.mineraloil.waiters.WaiterImpl;
 import lombok.Data;
 import lombok.Getter;

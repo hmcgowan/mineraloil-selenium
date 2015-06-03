@@ -1,30 +1,30 @@
-package com.lithium.mineraloil.selenium.generic_elements;
+package com.lithium.mineraloil.selenium.elements;
 
 import lombok.Delegate;
 import org.openqa.selenium.By;
 
-public class ButtonElement implements Element {
+public class LinkElement implements Element {
     @Delegate(excludes = {IFrameActions.class})
-    private final BaseElement baseElement;
+    private BaseElement baseElement;
 
-    public ButtonElement(By by) {
+    public LinkElement(By by) {
         baseElement = new BaseElement(by);
     }
 
-    public ButtonElement(By by, int index) {
+    public LinkElement(By by, int index) {
         baseElement = new BaseElement(by, index);
     }
 
-    public ButtonElement(Element parentElement, By by) {
+    public LinkElement(Element parentElement, By by) {
         baseElement = new BaseElement(parentElement, by);
     }
 
-    public ButtonElement(Element parentElement, By by, int index) {
+    public LinkElement(Element parentElement, By by, int index) {
         baseElement = new BaseElement(parentElement, by, index);
     }
 
     @Override
-    public ButtonElement registerIFrame(Element iframeElement) {
+    public LinkElement registerIFrame(Element iframeElement) {
         baseElement.registerIFrame(iframeElement);
         return this;
     }
