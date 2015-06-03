@@ -1,6 +1,7 @@
 package com.lithium.mineraloil.selenium.browsers;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -12,7 +13,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@Data
+@Getter
+@Setter
 public class FirefoxBrowser extends BrowserImpl {
     public static String downloadDirectory;
     public static List<String> browserProperties = new ArrayList<>();
