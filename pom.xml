@@ -5,11 +5,11 @@
     <groupId>com.lithium.mineraloil</groupId>
     <artifactId>selenium</artifactId>
     <name>mineraloil-selenium</name>
-    <version>0.1.0</version>
+    <version>0.1.1</version>
     <packaging>jar</packaging>
 
     <description>
-        selenium tests without the GUI
+        selenium webdriver wrapper
     </description>
 
     <organization>

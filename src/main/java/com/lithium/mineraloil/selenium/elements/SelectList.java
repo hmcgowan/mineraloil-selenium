@@ -1,4 +1,4 @@
-package com.lithium.mineraloil.selenium.generic_elements;
+package com.lithium.mineraloil.selenium.elements;
 
 import java.util.List;
 
