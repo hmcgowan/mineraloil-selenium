@@ -1,0 +1,7 @@
+.idea
+.DS_Store
+*.iml
+src/main/resources/config.config
+src/main/resources/conf/local
+/target
+screenshots/
