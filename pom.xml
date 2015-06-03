@@ -9,7 +9,7 @@
     <packaging>jar</packaging>
 
     <description>
-        selenium tests without the GUI
+        selenium webdriver wrapper
     </description>
 
     <organization>
