@@ -11,14 +11,19 @@ import org.slf4j.LoggerFactory;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 
 
 public class Screenshot {
 
     private static final Logger logger = LoggerFactory.getLogger(Screenshot.class);
-    private static final String screenShotDirectory = getDirectory();
+    private static final String screenShotDirectory = getDirectory("screenshots");
+    private static final String htmlScreenShotDirectory = getDirectory("html-screenshots");
 
     public static void takeScreenShot(WebDriver driver, String filename) {
         try {
@@ -57,6 +62,34 @@ public class Screenshot {
         }
     }
 
+    public static void takeHTMLScreenshot(String filename) {
+        if (!DriverManager.isDriverStarted()) {
+            logger.error("Webdriver not started. Unable to take html snapshot");
+            return;
+        }
+
+        filename +=  "_" + System.currentTimeMillis() + "_" + Thread.currentThread().getId() + ".html";
+
+        Writer writer = null;
+        logger.info("Capturing HTML snapshot: " + htmlScreenShotDirectory + filename);
+
+        try {
+            writer = new BufferedWriter(
+                    new OutputStreamWriter(
+                            new FileOutputStream(htmlScreenShotDirectory + filename), "utf-8"));
+            writer.write(DriverManager.getHtml());
+        } catch (IOException ex) {
+            logger.info("Unable to write out current state of html");
+        } finally {
+            try {
+                writer.close();
+            } catch (Exception e) {
+                logger.info("Unable to close writer");
+            }
+        }
+    }
+
+
     private static BufferedImage getScreenAsBufferedImage() {
         BufferedImage img = null;
         try {
@@ -73,8 +106,8 @@ public class Screenshot {
 
 
 
-    private static String getDirectory() {
-        String screenshotDirectory = ClassLoader.getSystemClassLoader().getSystemResource("").getPath() + "../screenshots/";
+    private static String getDirectory(String name) {
+        String screenshotDirectory = String.format("%s/../%s/", ClassLoader.getSystemClassLoader().getSystemResource("").getPath(),name);
         File file = new File(screenshotDirectory);
         if (!file.exists()) file.mkdir();
         logger.info("Creating screenshot directory: " + screenshotDirectory);
