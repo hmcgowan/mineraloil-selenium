@@ -107,7 +107,7 @@ public class Screenshot {
 
 
     private static String getDirectory(String name) {
-        String screenshotDirectory = String.format("%s/../%s/", ClassLoader.getSystemClassLoader().getSystemResource("").getPath(),name);
+        String screenshotDirectory = String.format("%s../%s/", ClassLoader.getSystemClassLoader().getSystemResource("").getPath(),name);
         File file = new File(screenshotDirectory);
         if (!file.exists()) file.mkdir();
         logger.info("Creating screenshot directory: " + screenshotDirectory);
