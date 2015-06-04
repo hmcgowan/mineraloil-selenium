@@ -66,6 +66,11 @@
             <version>2.44.0</version>
         </dependency>
         <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.3.5</version>
+        </dependency>
+        <dependency>
             <groupId>com.lithium.mineraloil</groupId>
             <artifactId>waiters</artifactId>
             <version>0.1.8</version>
