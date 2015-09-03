@@ -228,12 +228,10 @@ public class DriverManager {
         while (iter.hasNext()) {
             driverInstance = iter.next();
             logger.info("driverInstance " + driverInstance.getId());
-            if (driverInstance.getId().equals(driverId)) {
-                drivers.get(Thread.currentThread().getId()).remove(driverInstance);
-                if (drivers.get(Thread.currentThread().getId()).contains(driverInstance)) {
-                    throw new RuntimeException("This should never happen!!!");
-                }
+            while (drivers.get(Thread.currentThread().getId()).remove(driverInstance)) {
+                // removing all possible driver instances of this id
             }
+            break;
         }
         return driverInstance;
     }
