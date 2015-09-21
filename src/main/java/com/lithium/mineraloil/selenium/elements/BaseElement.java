@@ -27,7 +27,7 @@ public class BaseElement implements Element {
     public static final int ELEMENT_ATTRIBUTE_WAIT_MS = 500;
     public static final int FOCUS_WAIT_S = 1;
     public static final int DISPLAY_WAIT_S = 20;
-    private final Logger logger = LoggerFactory.getLogger(BaseElement.class);
+    private static final Logger logger = LoggerFactory.getLogger(BaseElement.class);
     private int index = -1;
 
     @Getter
@@ -481,6 +481,10 @@ public class BaseElement implements Element {
     }
 
     static void switchFocusFromIFrame() {
-        getCurrentWebDriver().switchTo().parentFrame();
+        try {
+            getCurrentWebDriver().switchTo().parentFrame();
+        } catch (Exception e) {
+            getCurrentWebDriver().switchTo().defaultContent();
+        }
     }
 }
