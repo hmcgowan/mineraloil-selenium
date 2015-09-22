@@ -23,6 +23,15 @@ public enum BrowserType {
         public String getDownloadDirectory() {
             return null;
         }
+    }, SELENIUM_GRID {
+        @Override
+        public WebDriver create() {
+            return new SeleniumGridBrowser().open();
+        }
+        @Override
+        public String getDownloadDirectory() {
+            return null;
+        }
     };
 
     public abstract WebDriver create();
