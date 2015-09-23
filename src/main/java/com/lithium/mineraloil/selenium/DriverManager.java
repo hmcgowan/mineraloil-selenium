@@ -18,6 +18,7 @@ import org.openqa.selenium.remote.UnreachableBrowserException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -48,7 +49,6 @@ public class DriverManager {
 
         private void startDriver(BrowserType browserType, String id) {
             driver = browserType.create();
-            driver.manage().window().maximize();
             logger.info(String.format("Starting driver %s: %s", id, getDriver().getWindowHandle()));
             defaultWindowHandle = getDriver().getWindowHandle();
             this.id = id;
@@ -98,6 +98,7 @@ public class DriverManager {
         if (!isDriverStarted()) addExpectedWaiterExceptions();
         DriverInstance driverInstance = new DriverInstance(browserType, id);
         putDriver(driverInstance);
+        maximizeWindow();
         logger.info(String.format("Starting driver %s: %s", id, driverInstance.getDriver().toString()));
     }
 
@@ -145,6 +146,16 @@ public class DriverManager {
         getCurrentWebDriver().close();
         switchWindow();
     }
+
+    public static void maximizeWindow() {
+        java.awt.Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        org.openqa.selenium.Point position = new org.openqa.selenium.Point(0, 0);
+        getCurrentWebDriver().manage().window().setPosition(position);
+        org.openqa.selenium.Dimension maximizedScreenSize =
+                new org.openqa.selenium.Dimension((int) screenSize.getWidth(), (int) screenSize.getHeight());
+        getCurrentWebDriver().manage().window().setSize(maximizedScreenSize);
+    }
+
 
     public static void openNewWindow(String url) {
         JavascriptHelper.openNewWindow(url);
