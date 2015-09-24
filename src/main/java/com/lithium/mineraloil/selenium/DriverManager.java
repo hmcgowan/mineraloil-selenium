@@ -39,13 +39,14 @@ public class DriverManager {
     protected static class DriverInstance {
         protected WebDriver driver;
         protected String id;
-        protected BrowserType browserType;
 
         public DriverInstance(BrowserType browserType, String id) {
-            this.browserType = browserType;
             startDriver(browserType, id);
         }
 
+        public DriverInstance(String id) {
+            startDriver(BrowserType.FIREFOX, id);
+        }
         private void startDriver(BrowserType browserType, String id) {
             driver = browserType.create();
             driver.manage().window().maximize();
@@ -64,7 +65,7 @@ public class DriverManager {
         DriverInstance currentDriver = getCurrentDriverInstance();
         if (currentDriver == null) {
             logger.warn(String.format("Driver not found for thread %s, starting new driver", Thread.currentThread().getId()));
-            startDriver(currentDriver.getBrowserType());
+            startDriver();
             currentDriver = getCurrentDriverInstance();
         }
         return currentDriver.getDriver();
@@ -81,13 +82,17 @@ public class DriverManager {
         } catch (UnreachableBrowserException e) {
             logger.info("WebDriver died...attempting restart: " + getCurrentDriverInstance().getId());
             removeDriverInstance(getCurrentDriverInstance().getId());
-            startDriver(getCurrentDriverInstance().getBrowserType());
+            startDriver();
             getCurrentWebDriver().get(url);
         }
     }
 
-    public static void startCleanupDriver(BrowserType browserType) {
-        startDriver(CLEANUP_BROWSER_ID, browserType);
+    public static void startDriver() {
+        startDriver(DEFAULT_BROWSER_ID);
+    }
+
+    public static void startCleanupDriver() {
+        startDriver(CLEANUP_BROWSER_ID);
     }
 
     public static void startDriver(BrowserType browserType) {
@@ -108,6 +113,13 @@ public class DriverManager {
         WaiterImpl.addExpectedException(WebDriverException.class);
         WaiterImpl.addExpectedException(MoveTargetOutOfBoundsException.class);
         WaiterImpl.addExpectedException(NullPointerException.class);
+    }
+
+    public static void startDriver(String id) {
+        if (!isDriverStarted()) addExpectedWaiterExceptions();
+        DriverInstance driverInstance = new DriverInstance(id);
+        putDriver(driverInstance);
+        logger.info(String.format("Starting driver %s: %s", id, driverInstance.getDriver().toString()));
     }
 
     public static void useDriver(String driver) {
