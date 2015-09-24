@@ -37,6 +37,7 @@ public class SeleniumGridBrowser extends BrowserImpl {
         options.addArguments(browserProperties);
         options.addArguments("test-type");
         profile.setBrowserName("chrome");
+        profile.setCapability("initialBrowserUrl", "http://www.google.com");
         profile.setCapability("chrome.binary", chromePath.getFile());
         profile.setCapability(ChromeOptions.CAPABILITY, options);
         profile.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
