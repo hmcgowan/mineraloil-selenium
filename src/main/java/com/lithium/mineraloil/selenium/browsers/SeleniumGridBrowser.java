@@ -19,7 +19,8 @@ public class SeleniumGridBrowser extends BrowserImpl {
 
     @Override
     protected WebDriver getDriver() {
-        serverAddress = getUrl("http://localhost:4444/wd/hub");
+        String ip = System.getenv("TEST_IP") != null ? System.getenv("TEST_IP") : "localhost";
+        serverAddress = getUrl(String.format("http://%s:4444/wd/hub", ip));
         chromePath = getUrl(getClass().getClassLoader().getResource("drivers/osx/chromedriver").toString());
         WebDriver driver = getDriverInstance();
         System.setProperty("webdriver.chrome.driver", chromePath.getFile());
@@ -36,6 +37,7 @@ public class SeleniumGridBrowser extends BrowserImpl {
         options.addArguments(browserProperties);
         options.addArguments("test-type");
         profile.setBrowserName("chrome");
+        profile.setCapability("initialBrowserUrl", "http://www.google.com");
         profile.setCapability("chrome.binary", chromePath.getFile());
         profile.setCapability(ChromeOptions.CAPABILITY, options);
         profile.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
