@@ -19,7 +19,8 @@ public class SeleniumGridBrowser extends BrowserImpl {
 
     @Override
     protected WebDriver getDriver() {
-        serverAddress = getUrl("http://localhost:4444/wd/hub");
+        String ip = System.getenv("TEST_IP") != null ? System.getenv("TEST_IP") : "localhost";
+        serverAddress = getUrl(String.format("http://%s:4444/wd/hub", ip));
         chromePath = getUrl(getClass().getClassLoader().getResource("drivers/osx/chromedriver").toString());
         WebDriver driver = getDriverInstance();
         System.setProperty("webdriver.chrome.driver", chromePath.getFile());
