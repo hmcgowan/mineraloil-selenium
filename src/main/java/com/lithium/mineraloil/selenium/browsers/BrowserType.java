@@ -36,5 +36,4 @@ public enum BrowserType {
 
     public abstract WebDriver create();
     public abstract String getDownloadDirectory();
-
 }
