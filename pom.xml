@@ -5,7 +5,7 @@
     <groupId>com.lithium.mineraloil</groupId>
     <artifactId>selenium</artifactId>
     <name>mineraloil-selenium</name>
-    <version>0.1.13-SNAPSHOT</version>
+    <version>0.1.13</version>
     <packaging>jar</packaging>
 
     <description>
