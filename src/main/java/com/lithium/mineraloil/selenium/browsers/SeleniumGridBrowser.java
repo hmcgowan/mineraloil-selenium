@@ -34,10 +34,11 @@ public class SeleniumGridBrowser extends BrowserImpl {
     private DesiredCapabilities getProfile(){
         DesiredCapabilities profile = DesiredCapabilities.chrome();
         ChromeOptions options = new ChromeOptions();
+        browserProperties.add("test-type");
+        browserProperties.add("user-data-dir=~");
+        browserProperties.add("start-maximized");
         options.addArguments(browserProperties);
-        options.addArguments("test-type");
         profile.setBrowserName("chrome");
-        profile.setCapability("initialBrowserUrl", "http://www.google.com");
         profile.setCapability("chrome.binary", chromePath.getFile());
         profile.setCapability(ChromeOptions.CAPABILITY, options);
         profile.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
