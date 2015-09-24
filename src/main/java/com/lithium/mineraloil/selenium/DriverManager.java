@@ -75,13 +75,13 @@ public class DriverManager {
         return (driverStack == null || driverStack.empty()) ? null : driverStack.peek();
     }
 
-    public static void gotoURL(String url) {
+    public static void gotoURL(String url, BrowserType browserType) {
         try {
             getCurrentWebDriver().get(url);
         } catch (UnreachableBrowserException e) {
             logger.info("WebDriver died...attempting restart: " + getCurrentDriverInstance().getId());
             removeDriverInstance(getCurrentDriverInstance().getId());
-            startDriver(getCurrentDriverInstance().getBrowserType());
+            startDriver(browserType);
             getCurrentWebDriver().get(url);
         }
     }
