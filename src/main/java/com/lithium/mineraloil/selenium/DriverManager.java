@@ -174,7 +174,7 @@ public class DriverManager {
         for (Long threadId : drivers.keySet()) {
             if (!drivers.get(threadId).empty()) {
                 DriverInstance driverInstance = drivers.get(threadId).pop();
-                driverInstance.getDriver().close();
+                driverInstance.getDriver().quit();
                 logger.info("Closing driver for thread id " + threadId);
             }
         }
