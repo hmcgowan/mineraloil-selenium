@@ -13,6 +13,7 @@ import java.util.List;
 public class ChromeBrowser extends BrowserImpl {
     public static List<String> browserProperties = new ArrayList<>();
     URL chromePath = getClass().getClassLoader().getResource("drivers/osx/chromedriver");
+    URL userDataDir = getClass().getClassLoader().getResource("conf");
 
     @Override
     protected WebDriver getDriver() {
@@ -30,7 +31,7 @@ public class ChromeBrowser extends BrowserImpl {
         DesiredCapabilities profile = DesiredCapabilities.chrome();
         ChromeOptions options = new ChromeOptions();
         browserProperties.add("test-type");
-        browserProperties.add("user-data-dir=~");
+        browserProperties.add(String.format("user-data-dir=%s", userDataDir));
         browserProperties.add("start-maximized");
         options.addArguments(browserProperties);
         profile.setBrowserName("chrome");
