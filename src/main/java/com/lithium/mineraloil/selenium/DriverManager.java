@@ -98,7 +98,9 @@ public class DriverManager {
         if (!isDriverStarted()) addExpectedWaiterExceptions();
         DriverInstance driverInstance = new DriverInstance(browserType, id);
         putDriver(driverInstance);
-//        maximizeWindow();
+        if (driverInstance.getBrowserType().equals(BrowserType.CHROME)) {
+            maximizeWindow();
+        }
         logger.info(String.format("Starting driver %s: %s", id, driverInstance.getDriver().toString()));
     }
 

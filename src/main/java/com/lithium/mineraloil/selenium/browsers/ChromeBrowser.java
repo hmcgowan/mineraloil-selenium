@@ -32,7 +32,6 @@ public class ChromeBrowser extends BrowserImpl {
         ChromeOptions options = new ChromeOptions();
         browserProperties.add("test-type");
         browserProperties.add(String.format("user-data-dir=%s", userDataDir));
-        browserProperties.add("start-maximized");
         options.addArguments(browserProperties);
         profile.setBrowserName("chrome");
         profile.setCapability("chrome.binary", chromePath.getFile());
