@@ -173,10 +173,16 @@ public class DriverManager {
         }
     }
 
-    public static void closeAllBrowsers() {
-        for (DriverInstance instance : drivers.get(Thread.currentThread().getId())) {
-            logger.info(instance.getDriver().getWindowHandle());
-            instance.getDriver().quit();
+    public static void quitAllBrowsers() {
+        for (Long threadId : drivers.keySet()) {
+            if (!drivers.get(threadId).empty()) {
+                int numberOfDrivers = drivers.get(threadId).size();
+                for (int instance = 0; instance < numberOfDrivers; instance++) {
+                    DriverInstance driverInstance = drivers.get(threadId).pop();
+                    driverInstance.getDriver().quit();
+                }
+                logger.info("Closing driver for thread id " + threadId);
+            }
         }
     }
 
