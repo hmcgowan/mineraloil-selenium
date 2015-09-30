@@ -10,23 +10,21 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class SeleniumGridBrowser extends BrowserImpl {
 
     public static List<String> browserProperties = new ArrayList<>();
     private static URL serverAddress;
-    private static URL chromePath;
     private static URL userDataDir;
 
     @Override
     protected WebDriver getDriver() {
         String ip = System.getenv("TEST_IP") != null ? System.getenv("TEST_IP") : "localhost";
         serverAddress = getUrl(String.format("http://%s:4444/wd/hub", ip));
-        chromePath = getUrl(getClass().getClassLoader().getResource("drivers/osx/chromedriver").toString());
         userDataDir = getClass().getClassLoader().getResource("conf");
 
         WebDriver driver = getDriverInstance();
-        System.setProperty("webdriver.chrome.driver", chromePath.getFile());
         return driver;
     }
 
@@ -38,11 +36,10 @@ public class SeleniumGridBrowser extends BrowserImpl {
         DesiredCapabilities profile = DesiredCapabilities.chrome();
         ChromeOptions options = new ChromeOptions();
         browserProperties.add("test-type");
-        browserProperties.add(String.format("user-data-dir=%s", userDataDir));
+        browserProperties.add(String.format("user-data-dir=%s", userDataDir + UUID.randomUUID().toString().replaceAll("-.+", "").substring(0, 8)));
         browserProperties.add("start-maximized");
         options.addArguments(browserProperties);
         profile.setBrowserName("chrome");
-        profile.setCapability("chrome.binary", chromePath.getFile());
         profile.setCapability(ChromeOptions.CAPABILITY, options);
         profile.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
         return profile;

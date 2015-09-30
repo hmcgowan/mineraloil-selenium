@@ -18,6 +18,7 @@ import org.openqa.selenium.remote.UnreachableBrowserException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -97,6 +98,9 @@ public class DriverManager {
         if (!isDriverStarted()) addExpectedWaiterExceptions();
         DriverInstance driverInstance = new DriverInstance(browserType, id);
         putDriver(driverInstance);
+        if (driverInstance.getBrowserType().equals(BrowserType.CHROME)) {
+            maximizeWindow();
+        }
         logger.info(String.format("Starting driver %s: %s", id, driverInstance.getDriver().toString()));
     }
 
@@ -150,6 +154,17 @@ public class DriverManager {
         DriverManager.switchWindow();
     }
 
+    public static void maximizeWindow() {
+        java.awt.Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        org.openqa.selenium.Point position = new org.openqa.selenium.Point(0, 0);
+        getCurrentWebDriver().manage().window().maximize();
+        getCurrentWebDriver().manage().window().setPosition(position);
+        org.openqa.selenium.Dimension maximizedScreenSize =
+                new org.openqa.selenium.Dimension((int) screenSize.getWidth(), (int) screenSize.getHeight());
+        getCurrentWebDriver().manage().window().setSize(maximizedScreenSize);
+    }
+
+
     public static void closeBrowser() {
         while (drivers.get(Thread.currentThread().getId()).size() > 1) {
             DriverInstance driverInstance = drivers.get(Thread.currentThread().getId()).pop();
@@ -159,12 +174,9 @@ public class DriverManager {
     }
 
     public static void closeAllBrowsers() {
-        for (Long threadId : drivers.keySet()) {
-            if (!drivers.get(threadId).empty()) {
-                DriverInstance driverInstance = drivers.get(threadId).pop();
-                driverInstance.getDriver().quit();
-                logger.info("Closing driver for thread id " + threadId);
-            }
+        for (DriverInstance instance : drivers.get(Thread.currentThread().getId())) {
+            logger.info(instance.getDriver().getWindowHandle());
+            instance.getDriver().quit();
         }
     }
 
