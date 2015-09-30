@@ -9,6 +9,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class ChromeBrowser extends BrowserImpl {
     public static List<String> browserProperties = new ArrayList<>();
@@ -31,9 +32,10 @@ public class ChromeBrowser extends BrowserImpl {
         DesiredCapabilities profile = DesiredCapabilities.chrome();
         ChromeOptions options = new ChromeOptions();
         browserProperties.add("test-type");
-        browserProperties.add(String.format("user-data-dir=%s", userDataDir));
+        browserProperties.add(String.format("user-data-dir=%s", userDataDir + UUID.randomUUID().toString().replaceAll("-.+", "").substring(0, 8)));
         options.addArguments(browserProperties);
-        profile.setBrowserName("chrome");
+        profile.setCapability("name", "chrome");
+        profile.setCapability(CapabilityType.TAKES_SCREENSHOT, true);
         profile.setCapability("chrome.binary", chromePath.getFile());
         profile.setCapability(ChromeOptions.CAPABILITY, options);
         profile.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
