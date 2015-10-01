@@ -14,7 +14,7 @@ import java.util.UUID;
 public class ChromeBrowser extends BrowserImpl {
     public static List<String> browserProperties = new ArrayList<>();
     URL chromePath = getClass().getClassLoader().getResource("drivers/osx/chromedriver");
-    URL userDataDir = getClass().getClassLoader().getResource("chromeProfiles/profile");
+    URL userDataDir = getClass().getClassLoader().getResource("chromeProfiles/");
 
     @Override
     protected WebDriver getDriver() {
