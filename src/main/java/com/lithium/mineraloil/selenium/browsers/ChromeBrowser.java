@@ -1,5 +1,7 @@
 package com.lithium.mineraloil.selenium.browsers;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -7,12 +9,15 @@ import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
+@Getter
+@Setter
 public class ChromeBrowser extends BrowserImpl {
-    public static List<String> browserProperties = new ArrayList<>();
+    public static String downloadDirectory;
+
     URL chromePath = getClass().getClassLoader().getResource("drivers/osx/chromedriver");
     URL userDataDir = getClass().getClassLoader().getResource("chromeProfiles/");
 
@@ -29,11 +34,15 @@ public class ChromeBrowser extends BrowserImpl {
     }
 
     private DesiredCapabilities getProfile(){
+        Map<String, Object> prefs = new HashMap<>();
         DesiredCapabilities profile = DesiredCapabilities.chrome();
         ChromeOptions options = new ChromeOptions();
-        browserProperties.add("test-type");
-        browserProperties.add(String.format("user-data-dir=%s", userDataDir + UUID.randomUUID().toString().replaceAll("-.+", "").substring(0, 8)));
-        options.addArguments(browserProperties);
+
+        String dataDirectory = userDataDir + UUID.randomUUID().toString().replaceAll("-.+", "").substring(0, 8);
+        downloadDirectory = String.format("%s", dataDirectory + "/Downloads");
+
+        prefs.put("download.default_directory", downloadDirectory);
+        options.setExperimentalOption("prefs", prefs);
         profile.setCapability("name", "chrome");
         profile.setCapability(CapabilityType.TAKES_SCREENSHOT, true);
         profile.setCapability("chrome.binary", chromePath.getFile());
