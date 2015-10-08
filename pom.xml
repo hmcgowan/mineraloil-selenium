@@ -5,7 +5,7 @@
     <groupId>com.lithium.mineraloil</groupId>
     <artifactId>selenium</artifactId>
     <name>mineraloil-selenium</name>
-    <version>0.1.21</version>
+    <version>0.1.22</version>
     <packaging>jar</packaging>
 
     <description>
@@ -63,7 +63,7 @@
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
-            <version>2.44.0</version>
+            <version>2.47.2</version>
         </dependency>
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>

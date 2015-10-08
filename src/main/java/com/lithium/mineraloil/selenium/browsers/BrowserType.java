@@ -21,7 +21,7 @@ public enum BrowserType {
 
         @Override
         public String getDownloadDirectory() {
-            return null;
+            return ChromeBrowser.downloadDirectory;
         }
     }, SELENIUM_GRID {
         @Override
@@ -30,7 +30,7 @@ public enum BrowserType {
         }
         @Override
         public String getDownloadDirectory() {
-            return null;
+            return SeleniumGridBrowser.downloadDirectory;
         }
     };
 
