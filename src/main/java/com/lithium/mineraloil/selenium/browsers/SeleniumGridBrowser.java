@@ -28,6 +28,8 @@ public class SeleniumGridBrowser extends BrowserImpl {
         serverAddress = getUrl(String.format("http://%s:4444/wd/hub", ip));
         userDataDir = getClass().getClassLoader().getResource("chromeProfiles");
 
+        logger.info(String.format("Attempting to connect to %s", ip));
+
         WebDriver driver = getDriverInstance();
         return driver;
     }
