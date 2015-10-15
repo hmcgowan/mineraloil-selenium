@@ -143,9 +143,8 @@ public class DriverManager {
     }
 
     public static void closeWindow() {
-        List<String> windowHandles = new ArrayList<>(getCurrentWebDriver().getWindowHandles());
-        getCurrentWebDriver().switchTo().window(windowHandles.get(windowHandles.size() - 1));
-        getCurrentWebDriver().close();
+		switchWindow();
+		getCurrentWebDriver().close();
         switchWindow();
     }
 
