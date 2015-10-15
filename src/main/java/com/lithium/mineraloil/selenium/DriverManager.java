@@ -176,11 +176,8 @@ public class DriverManager {
     public static void quitAllBrowsers() {
         for (Long threadId : drivers.keySet()) {
             if (!drivers.get(threadId).empty()) {
-                int numberOfDrivers = drivers.get(threadId).size();
-                for (int instance = 0; instance < numberOfDrivers; instance++) {
-                    DriverInstance driverInstance = drivers.get(threadId).pop();
-                    driverInstance.getDriver().quit();
-                }
+                DriverInstance driverInstance = drivers.get(threadId).pop();
+                driverInstance.getDriver().close();
                 logger.info("Closing driver for thread id " + threadId);
             }
         }
