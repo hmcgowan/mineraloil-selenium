@@ -169,7 +169,11 @@ public class DriverManager {
         while (drivers.get(Thread.currentThread().getId()).size() > 1) {
             DriverInstance driverInstance = drivers.get(Thread.currentThread().getId()).pop();
             logger.info("Closing driver for thread id " + Thread.currentThread().getId());
-            driverInstance.getDriver().close();
+            try {
+                driverInstance.getDriver().close();
+            } catch (WebDriverException e) {
+                logger.info(String.format("There was an ignored exception closing the web driver : %s", e));
+            }
         }
     }
 
@@ -177,7 +181,11 @@ public class DriverManager {
         for (Long threadId : drivers.keySet()) {
             if (!drivers.get(threadId).empty()) {
                 DriverInstance driverInstance = drivers.get(threadId).pop();
-                driverInstance.getDriver().close();
+                try {
+                    driverInstance.getDriver().close();
+                } catch (WebDriverException e) {
+                    logger.info(String.format("There was an ignored exception closing the web driver : %s", e));
+                }
                 logger.info("Closing driver for thread id " + threadId);
             }
         }
