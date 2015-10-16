@@ -31,6 +31,8 @@ public class SeleniumGridBrowser extends BrowserImpl {
         logger.info(String.format("Attempting to connect to %s", ip));
 
         WebDriver driver = getDriverInstance();
+
+        logger.info(String.format("We have got a driver!"));
         return driver;
     }
 
