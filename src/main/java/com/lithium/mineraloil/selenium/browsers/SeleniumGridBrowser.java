@@ -10,6 +10,9 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -39,16 +42,17 @@ public class SeleniumGridBrowser extends BrowserImpl {
     }
 
     private DesiredCapabilities getProfile(){
-//        Map<String, Object> prefs = new HashMap<>();
+        Map<String, Object> prefs = new HashMap<>();
         DesiredCapabilities profile = DesiredCapabilities.chrome();
         ChromeOptions options = new ChromeOptions();
 
-//        String dataDirectory = userDataDir + UUID.randomUUID().toString().replaceAll("-.+", "").substring(0, 8);
-//        downloadDirectory = String.format("%s", dataDirectory + "/Downloads");
+        String dataDirectory = userDataDir + UUID.randomUUID().toString().replaceAll("-.+", "").substring(0, 8);
+        downloadDirectory = String.format("%s", dataDirectory + "/Downloads");
 
-//        prefs.put("download.default_directory", downloadDirectory);
+		prefs.put("download.default_directory", downloadDirectory);
+		prefs.put("profile.default_content_settings.popups", 0);
         options.addArguments("start-maximized");
-//        options.setExperimentalOption("prefs", prefs);
+        options.setExperimentalOption("prefs", prefs);
         profile.setBrowserName("chrome");
         profile.setCapability(ChromeOptions.CAPABILITY, options);
         profile.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);

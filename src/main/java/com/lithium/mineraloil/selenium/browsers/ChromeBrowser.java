@@ -42,7 +42,8 @@ public class ChromeBrowser extends BrowserImpl {
         downloadDirectory = String.format("%s", dataDirectory + "/Downloads");
 
         prefs.put("download.default_directory", downloadDirectory);
-        options.setExperimentalOption("prefs", prefs);
+		prefs.put("profile.default_content_settings.popups", 0);
+		options.setExperimentalOption("prefs", prefs);
         profile.setCapability("name", "chrome");
         profile.setCapability(CapabilityType.TAKES_SCREENSHOT, true);
         profile.setCapability("chrome.binary", chromePath.getFile());
