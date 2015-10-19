@@ -49,7 +49,7 @@ public class SeleniumGridBrowser extends BrowserImpl {
         String dataDirectory = userDataDir + UUID.randomUUID().toString().replaceAll("-.+", "").substring(0, 8);
         downloadDirectory = String.format("%s", dataDirectory + "/Downloads");
 
-        prefs.put("browser.download.dir", downloadDirectory);
+		prefs.put("download.default_directory", downloadDirectory);
 		prefs.put("profile.default_content_settings.popups", 0);
         options.addArguments("start-maximized");
         options.setExperimentalOption("prefs", prefs);
