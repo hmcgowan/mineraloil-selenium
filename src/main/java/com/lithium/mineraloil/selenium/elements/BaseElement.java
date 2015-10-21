@@ -458,6 +458,26 @@ public class BaseElement implements Element {
     }
 
     @Override
+    public TableElement createTableElement(By childBy) {
+        return new TableElement(this, childBy);
+    }
+
+    @Override
+    public ElementList<TableElement> createTableElements(By childBy) {
+        return new ElementList<>(this, childBy, TableElement.class);
+    }
+
+    @Override
+    public TableRowElement createTableRowElement(By childBy) {
+        return new TableRowElement(this, childBy);
+    }
+
+    @Override
+    public ElementList<TableRowElement> createTableRowElements(By childBy) {
+        return new ElementList<>(this, childBy, TableRowElement.class);
+    }
+
+    @Override
     public boolean isFocused() {
         return new WaitCondition() {
             @Override
