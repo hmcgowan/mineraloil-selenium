@@ -36,5 +36,13 @@ public interface HasChildren {
 
     ElementList<SelectListElement> createSelectListElements(By by);
 
-    FileUploadElement createFileUploadElement(By childBy);
+    FileUploadElement createFileUploadElement(By by);
+
+    TableElement createTableElement(By by);
+
+    ElementList<TableElement> createTableElements(By by);
+
+    TableRowElement createTableRowElement(By by);
+
+    ElementList<TableRowElement> createTableRowElements(By by);
 }

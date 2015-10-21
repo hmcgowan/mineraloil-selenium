@@ -53,6 +53,22 @@ public class ElementFactory {
         return new SelectListElement(by);
     }
 
+    public TableElement createTableElement(By by) {
+        return new TableElement(by);
+    }
+
+    public ElementList<TableElement> createTableElements(By by) {
+        return new ElementList<>(by, TableElement.class);
+    }
+
+    public TableRowElement createTableRowElement(By by) {
+        return new TableRowElement(by);
+    }
+
+    public ElementList<TableRowElement> createTableRowElements(By by) {
+        return new ElementList<>(by, TableRowElement.class);
+    }
+
     public static ElementList<SelectListElement> createSelectListElements(By by) {
         return new ElementList<>(by, SelectListElement.class);
     }
