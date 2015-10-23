@@ -143,8 +143,8 @@ public class DriverManager {
     }
 
     public static void closeWindow() {
-		switchWindow();
-		getCurrentWebDriver().close();
+        switchWindow();
+        getCurrentWebDriver().close();
         switchWindow();
     }
 

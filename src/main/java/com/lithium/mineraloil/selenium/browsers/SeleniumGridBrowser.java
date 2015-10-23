@@ -18,7 +18,7 @@ import java.util.UUID;
 @Setter
 public class SeleniumGridBrowser extends BrowserImpl {
     public static String downloadDirectory;
-    
+
     private static URL serverAddress;
     private static URL userDataDir;
 
@@ -41,16 +41,16 @@ public class SeleniumGridBrowser extends BrowserImpl {
         return new RemoteWebDriver(serverAddress, getProfile());
     }
 
-    private DesiredCapabilities getProfile(){
+    private DesiredCapabilities getProfile() {
         Map<String, Object> prefs = new HashMap<>();
         DesiredCapabilities profile = DesiredCapabilities.chrome();
         ChromeOptions options = new ChromeOptions();
 
-        String dataDirectory = userDataDir + UUID.randomUUID().toString().replaceAll("-.+", "").substring(0, 8);
+        String dataDirectory = userDataDir.getFile() + UUID.randomUUID().toString().replaceAll("-.+", "").substring(0, 8);
         downloadDirectory = String.format("%s", dataDirectory + "/Downloads");
 
-		prefs.put("download.default_directory", downloadDirectory);
-		prefs.put("profile.default_content_settings.popups", 0);
+        prefs.put("download.default_directory", downloadDirectory);
+        prefs.put("profile.default_content_settings.popups", 0);
         options.addArguments("start-maximized");
         options.setExperimentalOption("prefs", prefs);
         profile.setBrowserName("chrome");
