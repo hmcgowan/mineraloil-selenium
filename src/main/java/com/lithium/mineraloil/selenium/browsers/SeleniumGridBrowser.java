@@ -1,5 +1,6 @@
 package com.lithium.mineraloil.selenium.browsers;
 
+import com.lithium.mineraloil.selenium.DriverNotFoundException;
 import lombok.Getter;
 import lombok.Setter;
 import org.openqa.selenium.WebDriver;
@@ -13,6 +14,13 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 @Getter
 @Setter
@@ -38,7 +46,56 @@ public class SeleniumGridBrowser extends BrowserImpl {
     }
 
     protected WebDriver getDriverInstance() {
-        return new RemoteWebDriver(serverAddress, getProfile());
+
+        int retries = 0;
+        int maxRetries = 5;
+        WebDriver webDriver = null;
+        while (retries < maxRetries) {
+            retries++;
+            webDriver = getDriverInThread();
+            if (webDriver != null) {
+                break;
+            } else {
+                if (retries == maxRetries) {
+                    throw new DriverNotFoundException("Was unable to get a Remote Driver!!!");
+                }
+            }
+        }
+        return webDriver;
+    }
+
+    private WebDriver getDriverInThread() {
+        WebDriver webDriver;
+
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        Future future = executorService.submit(new GridDriverThread(serverAddress, getProfile()));
+
+        try {
+            logger.info("Getting Remote Driver");
+            webDriver = (WebDriver) future.get(1, TimeUnit.MINUTES);
+        } catch (InterruptedException | ExecutionException | TimeoutException e) {
+            logger.info("Couldn't get Remote Driver!!");
+            return null;
+        }
+        executorService.shutdown();
+        return webDriver;
+
+    }
+
+    private class GridDriverThread implements Callable<WebDriver> {
+
+        URL serverAddress;
+        DesiredCapabilities profile;
+
+        public GridDriverThread(URL serverAddress, DesiredCapabilities profile) {
+            this.serverAddress = serverAddress;
+            this.profile = profile;
+        }
+
+        @Override
+        public WebDriver call() {
+            return new RemoteWebDriver(serverAddress, profile);
+        }
     }
 
     private DesiredCapabilities getProfile() {
