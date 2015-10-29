@@ -32,7 +32,7 @@ public class SeleniumGridBrowser extends BrowserImpl {
     @Override
     protected WebDriver getDriver() {
 
-        downloadDirectory = "/home/seluser/Downloads";
+        downloadDirectory = "/tmp/resources/Downloads";
 
         String ip = System.getenv("TEST_IP") != null ? System.getenv("TEST_IP") : "127.0.0.1";
         serverAddress = getUrl(String.format("http://%s:4444/wd/hub", ip));
