@@ -13,7 +13,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -32,6 +31,9 @@ public class SeleniumGridBrowser extends BrowserImpl {
 
     @Override
     protected WebDriver getDriver() {
+
+        downloadDirectory = "/home/seluser/Downloads";
+
         String ip = System.getenv("TEST_IP") != null ? System.getenv("TEST_IP") : "127.0.0.1";
         serverAddress = getUrl(String.format("http://%s:4444/wd/hub", ip));
         userDataDir = getClass().getClassLoader().getResource("chromeProfiles");
@@ -103,10 +105,6 @@ public class SeleniumGridBrowser extends BrowserImpl {
         DesiredCapabilities profile = DesiredCapabilities.chrome();
         ChromeOptions options = new ChromeOptions();
 
-        String dataDirectory = userDataDir.getFile() + UUID.randomUUID().toString().replaceAll("-.+", "").substring(0, 8);
-        downloadDirectory = String.format("%s", dataDirectory + "/Downloads");
-
-        prefs.put("download.default_directory", downloadDirectory);
         prefs.put("profile.default_content_settings.popups", 0);
         options.addArguments("start-maximized");
         options.setExperimentalOption("prefs", prefs);
