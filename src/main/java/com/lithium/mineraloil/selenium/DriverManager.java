@@ -101,6 +101,9 @@ public class DriverManager {
         if (driverInstance.getBrowserType().equals(BrowserType.CHROME)) {
             maximizeWindow();
         }
+        if (driverInstance.getBrowserType().equals(BrowserType.REMOTE_FIREFOX)) {
+            getCurrentWebDriver().manage().window().maximize();
+        }
         logger.info(String.format("Starting driver %s: %s", id, driverInstance.getDriver().toString()));
     }
 

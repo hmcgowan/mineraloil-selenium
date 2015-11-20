@@ -32,6 +32,11 @@ public enum BrowserType {
         public String getDownloadDirectory() {
             return SeleniumGridBrowser.downloadDirectory;
         }
+    }, REMOTE_FIREFOX {
+        @Override
+        public WebDriver create() { return new RemoteFirefoxBrowser().open(); }
+        @Override
+        public String getDownloadDirectory() { return RemoteFirefoxBrowser.downloadDirectory; }
     };
 
     public abstract WebDriver create();
