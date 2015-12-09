@@ -105,7 +105,6 @@ public class RemoteFirefoxBrowser extends BrowserImpl {
         FirefoxProfile profile = new FirefoxProfile();
         List<String> properties = new ArrayList<>();
         properties.addAll(browserProperties);
-        downloadDirectory = createDirectory("download");
         properties.add(String.format("browser.download.dir=%s", downloadDirectory));
         if (logger.isDebugEnabled()) {
             String debugDirectory = createDirectory("screenshots");
