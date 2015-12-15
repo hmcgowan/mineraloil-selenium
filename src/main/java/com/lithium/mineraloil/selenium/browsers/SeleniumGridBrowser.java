@@ -105,6 +105,7 @@ public class SeleniumGridBrowser extends BrowserImpl {
         DesiredCapabilities profile = DesiredCapabilities.chrome();
         ChromeOptions options = new ChromeOptions();
 
+        prefs.put("download.default_directory", downloadDirectory);
         prefs.put("profile.default_content_settings.popups", 0);
         options.addArguments("start-maximized");
         options.setExperimentalOption("prefs", prefs);
