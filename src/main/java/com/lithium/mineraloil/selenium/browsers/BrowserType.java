@@ -23,14 +23,14 @@ public enum BrowserType {
         public String getDownloadDirectory() {
             return ChromeBrowser.downloadDirectory;
         }
-    }, SELENIUM_GRID {
+    }, REMOTE_CHROME {
         @Override
         public WebDriver create() {
-            return new SeleniumGridBrowser().open();
+            return new RemoteChromeBrowser().open();
         }
         @Override
         public String getDownloadDirectory() {
-            return SeleniumGridBrowser.downloadDirectory;
+            return RemoteChromeBrowser.downloadDirectory;
         }
     }, REMOTE_FIREFOX {
         @Override

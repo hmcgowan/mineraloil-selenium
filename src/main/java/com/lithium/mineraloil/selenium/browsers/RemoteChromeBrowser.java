@@ -23,7 +23,7 @@ import java.util.concurrent.TimeoutException;
 
 @Getter
 @Setter
-public class SeleniumGridBrowser extends BrowserImpl {
+public class RemoteChromeBrowser extends BrowserImpl {
     public static String downloadDirectory;
 
     private static URL serverAddress;

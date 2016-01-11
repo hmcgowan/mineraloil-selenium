@@ -1,6 +1,6 @@
 # Branching and Releasing
 
-For lsw serialization project we use gitflow. You can read more about it below:
+For serialization projects we use gitflow. You can read more about it below:
 
   * [Git Flow](http://nvie.com/posts/a-successful-git-branching-model/)
   * [Git Flow Cheat Sheet](https://danielkummer.github.io/git-flow-cheatsheet/)
@@ -54,7 +54,4 @@ You will see a git commit editor screen twice. Just save what's there without mo
 This code will automatically push the release to the release branch, tag it with the release 
 version and update the version numbers in your POM. One commit is for updating the release branch with the 
 contents of the release so we can build and push to nexus. The other commit is updating the version numbers 
-for your master branch. These scripts take care of all of the versioning so running the script is all you need to do. 
-
-When the script completes, you can go into jenkins and run the release job, which pushes the jars to nexus 
-http://dev-lswcore-jenkins-master.dev.aws.lcloud.com/view/qa-build/job/qa-release-mineraloil-api/
+for your master branch. These scripts take care of all of the versioning.

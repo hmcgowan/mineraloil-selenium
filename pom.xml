@@ -2,6 +2,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <groupId>com.lithium</groupId>
+        <artifactId>lithium-oss-superpom</artifactId>
+        <version>0.9</version>
+    </parent>
+
     <groupId>com.lithium.mineraloil</groupId>
     <artifactId>selenium</artifactId>
     <name>mineraloil-selenium</name>
@@ -12,48 +18,12 @@
         selenium webdriver wrapper
     </description>
 
-    <organization>
-        <name>Lithium Technologies</name>
-        <url>http://lithium.com</url>
-    </organization>
-
     <scm>
         <url>scm:git:git@github.com:lithiumtech/mineraloil-selenium.git</url>
         <connection>scm:git:git@github.com:lithiumtech/mineraloil-selenium.git</connection>
         <developerConnection>scm:git:git@github.com:lithiumtech/mineraloil-selenium.git</developerConnection>
         <tag>HEAD</tag>
     </scm>
-
-    <distributionManagement>
-        <repository>
-            <id>lithium-releases</id>
-            <name>nexus-maven-repo</name>
-            <url>http://nexus.dev.lithium.com/nexus/content/repositories/releases</url>
-        </repository>
-    </distributionManagement>
-
-    <repositories>
-        <repository>
-            <id>lithium-internal-nexus</id>
-            <name>nexus-maven-repo</name>
-            <url>http://nexus.dev.lithium.com/nexus/content/repositories/releases</url>
-            <snapshots><enabled>false</enabled></snapshots>
-        </repository>
-    </repositories>
-
-    <pluginRepositories>
-        <pluginRepository>
-            <id>lithium-internal-nexus</id>
-            <name>nexus-maven-repo</name>
-            <url>http://nexus.dev.lithium.com/nexus/content/repositories/releases</url>
-            <snapshots><enabled>false</enabled></snapshots>
-        </pluginRepository>
-    </pluginRepositories>
-
-    <issueManagement>
-        <system>GitHub</system>
-        <url>https://github.com/lithiumtech/mineraloil-selenium/issues</url>
-    </issueManagement>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
