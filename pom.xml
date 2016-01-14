@@ -72,8 +72,8 @@
         </dependency>
         <dependency>
             <groupId>com.lithium.mineraloil</groupId>
-            <artifactId>waiters</artifactId>
-            <version>0.1.8</version>
+            <artifactId>mineraloil-waiters</artifactId>
+            <version>0.1.19</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
